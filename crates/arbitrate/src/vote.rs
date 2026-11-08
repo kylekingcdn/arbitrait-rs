@@ -108,19 +108,19 @@ where
         }
     }
 
-    /// Builder-style alternative for [`add_piece`]
+    /// Builder-style alternative to [`add_evidence()`](Self::add_evidence))
     #[must_use]
     pub fn with_evidence(mut self, topic: T, evidence: I) -> Self {
         self.add_evidence(topic, evidence);
         self
     }
-    /// Builder-style alternative for [`add_bag`]
+    /// Builder-style alternative to [`add_evidence_bag()`](Self::add_evidence_bag))
     #[must_use]
     pub fn with_evidence_bag(mut self, topic: T, bag: impl IntoIterator<Item = I>) -> Self {
         self.add_evidence_bag(topic, bag);
         self
     }
-    /// Builder-style alternative for [`add_locker`]
+    /// Builder-style alternative to [`add_evidence_locker()`](Self::add_evidence_locker))
     #[must_use]
     pub fn with_evidence_locker(mut self, locker: impl IntoIterator<Item = (T, impl IntoIterator<Item = I>)>) -> Self {
         self.add_evidence_locker(locker);

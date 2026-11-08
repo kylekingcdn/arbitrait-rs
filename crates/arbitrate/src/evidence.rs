@@ -16,13 +16,13 @@ use serde::{Deserialize, Serialize};
 ///
 /// Topics and evidence items are generic for storage flexibility
 ///
-/// Each must impl [`fmt::Display`].
+/// Each must impl [`Display`].
 ///
 /// For simple usage, [`String`]s can be used (alias provided via [`StringEvidence`]).
 /// This comes at the cost of allocation overhead.
 ///
-/// Alternatively, you can substitute dedicated `T` and `I` with zero-sized types which impl [`fmt::Display`].
-/// Doing so will prevent storage (and defer rendering) of text until needed (e.g. by a [`Report`]).
+/// Alternatively, you can substitute dedicated `T` and `I` with zero-sized types which impl [`Display`].
+/// Doing so will prevent storage (and defer rendering) of text until needed (e.g. by a [`Report`](crate::record::Report)).
 #[derive(Debug, Clone)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[cfg_attr(feature = "serde", serde(bound(deserialize = "
@@ -65,19 +65,19 @@ impl<T: Eq + Hash, I> Evidence<T, I>
         }
     }
 
-    /// Builder-style alternative of [`add_piece`]
+    /// Builder-style alternative of [`add_piece()`](Self::add_piece)
     #[must_use]
     pub fn with_piece(mut self, topic: T, evidence: I) -> Self {
         self.add_piece(topic, evidence);
         self
     }
-    /// Builder-style alternative of [`add_bag`]
+    /// Builder-style alternative of [`add_bag()`](Self::add_bag)
     #[must_use]
     pub fn with_bag(mut self, topic: T, bag: impl IntoIterator<Item = I>) -> Self {
         self.add_bag(topic, bag);
         self
     }
-    /// Builder-style alternative of [`add_locker`]
+    /// Builder-style alternative of [`add_locker()`](Self::add_locker)
     #[must_use]
     pub fn with_locker(mut self, locker: impl IntoIterator<Item = (T, impl IntoIterator<Item = I>)>) -> Self {
         self.add_locker(locker);
