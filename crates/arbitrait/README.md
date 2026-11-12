@@ -1,4 +1,4 @@
-# `arbitrate-rs`
+# `arbitrait-rs`
 
 Rust types + traits for decision-making through voter consensus.
 
@@ -15,8 +15,8 @@ logic evaluation for complex, recursive, or highly inter-dependent condition cas
 
 **Note**: Docs will be added shortly
 
-[**crates.io**](https://crates.io/crates/arbitrate)
+[**crates.io**](https://crates.io/crates/arbitrait)
 |
-[**Docs**](https://docs.rs/arbitrate/latest)
+[**Docs**](https://docs.rs/arbitrait/latest)
 |
-[**GitHub**](https://github.com/kylekingcdn/arbitrate-rs)
+[**GitHub**](https://github.com/kylekingcdn/arbitrait-rs)

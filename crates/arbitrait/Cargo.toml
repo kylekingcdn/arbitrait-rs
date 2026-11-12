@@ -1,5 +1,5 @@
 [package]
-name = "arbitrate"
+name = "arbitrait"
 description.workspace = true
 version.workspace = true
 edition.workspace = true

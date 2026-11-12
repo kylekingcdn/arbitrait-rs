@@ -4,17 +4,16 @@
 #![warn(missing_docs)]
 #![warn(unreachable_pub)]
 
-/// Tie-breaking (or overruling) logic for settling a vote
-pub mod arbitrate;
+/// Types/traits for the choices provided to a voter
+pub mod ballot;
 
 /// Provides types/traits used to attach concrete instances of proof to back up a decision
 pub mod evidence;
 
-/// Types/traits for the subject matter pertaining to a given vote
+/// Types/traits for the subject matter of a given vote
 pub mod proposal;
+pub use proposal::Propose;
 
-/// Post-vote breakdown types
-pub mod record;
-
-/// Primary traits for voting and
+/// Types/traits for votes and vote casting
 pub mod vote;
+pub use vote::{CastVote, IterVoteCollector, Outcome, Vote};
