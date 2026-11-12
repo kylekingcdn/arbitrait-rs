@@ -1,1 +1,1 @@
-crates/arbitrate/README.md
+crates/arbitrait/README.md
