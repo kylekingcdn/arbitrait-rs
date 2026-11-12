@@ -12,6 +12,9 @@ rust-version = "1.91"
 repository = "https://github.com/kylekingcdn/arbitrait-rs"
 license = "MIT"
 publish = false
+exclude = [
+    "CHANGELOG.md"
+]
 
 [profile.dev]
 opt-level = 1
