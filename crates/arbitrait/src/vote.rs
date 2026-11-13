@@ -4,6 +4,7 @@ use crate::{
         ProposalBallot, ProposalBallotResult,
         ProposalEvidence, Propose,
     },
+    report::{AsReport, OutcomeReport, RenderElement},
 };
 
 use std::marker::PhantomData;
@@ -176,6 +177,25 @@ impl<P: Propose> Outcome<P> {
     }
 }
 
+// Add inline as_report() method
+impl<P> Outcome<P>
+where
+    Self: AsReport<OutcomeReport>,
+    P: Propose,
+{
+    /// Provides the skeleton used to create formatted reports
+    pub fn as_report(&self) -> OutcomeReport {
+        <Self as AsReport<_>>::as_report(self)
+    }
+    /// Provides the skeleton used to create formatted reports
+    pub fn as_rendered_report<F>(&self, _format: F) -> String
+    where
+        F: RenderElement<OutcomeReport>
+    {
+        let context = <F as RenderElement<_>>::Context::default();
+        F::render_element(self.as_report(), context)
+    }
+}
 impl<P: Propose> FromIterator<Vote<P>> for Outcome<P> {
     fn from_iter<T: IntoIterator<Item = Vote<P>>>(iter: T) -> Self {
         Self::from_votes(iter)

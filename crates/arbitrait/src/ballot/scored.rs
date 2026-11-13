@@ -12,7 +12,7 @@ use std::fmt::{Debug, Display};
 ///
 /// - Simple elections (candidate with highest number of votes wins)
 /// - Complex elections (tiers, districts, weightings, etc.)
-/// - Voting on a new bill (majority tules)
+/// - Voting on a new bill (majority rules)
 /// - Vetoing some decision, where `n` number of vetos is required to bypass
 ///
 /// # Examples

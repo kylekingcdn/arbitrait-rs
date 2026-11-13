@@ -25,7 +25,7 @@ pub trait Propose: Copy {
     type Evidence: Default;
 
     /// Single sentence description of the decision to be evaluated
-    fn description(&self) -> String;
+    fn description() -> String;
 
     /// Builds new evidence storage
     #[must_use]

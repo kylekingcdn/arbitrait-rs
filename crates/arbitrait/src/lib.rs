@@ -14,6 +14,9 @@ pub mod evidence;
 pub mod proposal;
 pub use proposal::Propose;
 
+/// Types/traits providing human-friendly output of voting trees
+pub mod report;
+
 /// Types/traits for votes and vote casting
 pub mod vote;
 pub use vote::{CastVote, IterVoteCollector, Outcome, Vote};
