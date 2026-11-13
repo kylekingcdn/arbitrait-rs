@@ -6,7 +6,7 @@ members = [
 
 [workspace.package]
 description = "Traits providing a simple framework for decision-making via voter consensus"
-version = "0.0.3"
+version = "0.0.4"
 edition = "2024"
 rust-version = "1.91"
 repository = "https://github.com/kylekingcdn/arbitrait-rs"
