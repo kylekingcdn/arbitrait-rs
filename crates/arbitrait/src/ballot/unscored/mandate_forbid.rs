@@ -30,7 +30,20 @@ pub enum MandateForbidBallot {
     /// Voter outright rejects the request; it is incompatible or unsound given current conditions
     Forbid = 2,
 }
-
+impl MandateForbidBallot {
+    /// Returns true if `self == Mandate`
+    pub fn is_mandate(self) -> bool {
+        matches!(self, Self::Mandate)
+    }
+    /// Returns true if `self == Abstain`
+    pub fn is_abstain(self) -> bool {
+        matches!(self, Self::Abstain)
+    }
+    /// Returns true if `self == Forbid`
+    pub fn is_forbid(self) -> bool {
+        matches!(self, Self::Forbid)
+    }
+}
 impl UnscoredBallot for MandateForbidBallot {
     fn arbitrate(self) -> Self {
          if matches!(&self, Self::Abstain) {
@@ -59,5 +72,24 @@ impl fmt::Display for MandateForbidBallot {
 impl AddAssign<Self> for MandateForbidBallot {
     fn add_assign(&mut self, rhs: Self) {
             *self = max(*self, rhs);
+    }
+}
+
+impl From<MandateForbidBallot> for Option<bool> {
+    fn from(ballot: MandateForbidBallot) -> Self {
+        match ballot {
+            MandateForbidBallot::Mandate => Some(true),
+            MandateForbidBallot::Abstain => None,
+            MandateForbidBallot::Forbid => Some(false),
+        }
+    }
+}
+impl From<Option<bool>> for MandateForbidBallot {
+    fn from(val: Option<bool>) -> Self {
+        match val {
+            Some(true) => Self::Mandate,
+            None => Self::Abstain,
+            Some(false) => Self::Forbid,
+        }
     }
 }

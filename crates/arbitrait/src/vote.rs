@@ -86,6 +86,10 @@ impl<P: Propose> Vote<P> {
     pub fn evidence(&self) -> &ProposalEvidence<P> {
         &self.evidence
     }
+    /// Consumes self, returning the underlying evidence
+    pub fn into_evidence(self) -> ProposalEvidence<P> {
+        self.evidence
+    }
     /// Returns the self-provided identity of the voter
     pub fn voter_identity(&self) -> &str {
         self.voter_identity.as_str()
@@ -149,9 +153,9 @@ impl<P: Propose> Outcome<P> {
         }
 
         let (result_unsettled, result) = if result.requires_arbitration() {
-            (None, result)
-        } else {
             (Some(result), result.arbitrate())
+        } else {
+            (None, result)
         };
 
         Self {
@@ -187,13 +191,25 @@ where
     pub fn as_report(&self) -> OutcomeReport {
         <Self as AsReport<_>>::as_report(self)
     }
-    /// Provides the skeleton used to create formatted reports
+    /// Creates a report and renders it with the provided format
     pub fn as_rendered_report<F>(&self, _format: F) -> String
     where
         F: RenderElement<OutcomeReport>
     {
         let context = <F as RenderElement<_>>::Context::default();
         F::render_element(self.as_report(), context)
+    }
+}
+impl<P> Outcome<P>
+where
+    P: Propose,
+    P::CountedBallot: Into<Option<bool>>,
+{
+    /// Returns the outcome as a bool
+    pub fn as_bool(&self) -> bool {
+        let val: Option<bool> = self.result.into();
+        assert!(val.is_some(), "Outcome settling must handle ambiguous results");
+        val.unwrap()
     }
 }
 impl<P: Propose> FromIterator<Vote<P>> for Outcome<P> {
@@ -206,6 +222,7 @@ impl<P: Propose> From<Vec<Vote<P>>> for Outcome<P> {
         value.into_iter().collect()
     }
 }
+
 
 // !- Vote collection
 
